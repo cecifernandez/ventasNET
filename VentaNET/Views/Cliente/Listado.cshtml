@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Cliente>
+
+<h2>
+    Cargar Clientes
+</h2>
+
+<form method="post">
+    <input type="number" name="Id"/>
+    <input type="text" name="RazonSocial"/>
+    <input type="text" name="Domicilio"/>
+    <input type="text" name="Cuit"/>
+    <input type="text" name="Provincia"/>
+
+    <button type="submit" onclick="">Agregar</button>
+</form>
+
+@* Agregar función de botón con JS o Html.button c# *@
+
+<h2>Listado de Clientes</h2>
+
+
+<table class="table">
+    
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Id)</th>
+            <th>@Html.DisplayNameFor(model => model.RazonSocial)</th>
+            <th>@Html.DisplayNameFor(model => model.Domicilio)</th>
+            <th>@Html.DisplayNameFor(model => model.Cuit)</th>
+            <th>@Html.DisplayNameFor(model => model.Provincia)</th>
+        </tr>
+    </thead>
+    
+    @{
+
+        if(ViewBag.Cliente != null)
+        {           
+            foreach(var cliente in ViewBag.Cliente)
+            {
+                <tr>
+                    <td>@cliente.Id</td>
+                    <td>@cliente.RazonSocial</td>
+                    <td>@cliente.Domicilio</td>
+                    <td>@cliente.Cuit</td>
+                    <td>@cliente.Provincia</td>           
+                </tr>
+            }
+        }
+    }
+    
+</table>
