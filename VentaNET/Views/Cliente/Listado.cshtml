@@ -5,16 +5,71 @@
 </h2>
 
 <form method="post">
-    <input type="number" name="Id"/>
-    <input type="text" name="RazonSocial"/>
-    <input type="text" name="Domicilio"/>
-    <input type="text" name="Cuit"/>
-    <input type="text" name="Provincia"/>
+@*    <input type="number" name="Id" class="input" style="display:none;" id="client-id" placeholder="Id de cliente" />
+    <input type="text" name="RazonSocial" class="input" style="display:none;" id="client-rs" placeholder="Razon social de cliente" />
+    <input type="text" name="Domicilio" class="input" style="display:none;" id="client-dom" placeholder="Domicilio de cliente" />
+    <input type="text" name="Cuit" class="input" style="display:none;" id="client-cuit" placeholder="Cuit de cliente" />
+    <input type="text" name="Provincia" class="input" style="display:none;" id="client-prov" placeholder="Provincia de cliente" />*@
+    @*<input type="button" id="btn" onclick="showInputs()" style="background-color: red; width:150px" value="Agregar" />
+    <input type="button" id="btn-add"
+           onclick="addClient()"style="background-color: forestgreen; width:150px;display:none;" value="Aceptar" />
+    <input type="button" id="btn-cancel" onclick=" hideInputs()"
+        style="background-color: red; width:150px;display:none;" value="Cancelar" />*@
 
-    <button type="submit" onclick="">Agregar</button>
+   
+       
 </form>
 
-@* Agregar función de botón con JS o Html.button c# *@
+@*<script>
+
+    function showInputs() {
+        const inputs = document.getElementsByClassName("input");
+        for (const input of inputs) {
+            input.style.display = "inline-block";
+        }
+        document.getElementById("btn").style.display = "none";
+        document.querySelector('input[type="button"][value="Aceptar"]').style.display = "inline-block";
+        document.querySelector('input[type="button"][value="Cancelar"]').style.display = "inline-block";
+    }
+
+   function addClient(){
+       const clientId = document.getElementById("client-id").value;
+       const clientRs = document.getElementById("client-rs").value;
+       const clientDom = document.getElementById("client-dom").value;
+       const clientCuit = document.getElementById("client-cuit").value;
+       const clientProv = document.getElementById("client-prov").value;
+
+
+        if (clientId != "" && clientRs != "" && clientDom != "" && clientCuit != "" && clientProv != ""){
+       const table = document.querySelector(".table");
+       const row = document.createElement("tr");
+
+        row.innerHTML = `
+                            <td>${clientId}</td>
+                            <td>${clientRs}</td>
+                            <td>${clientDom}</td>
+                            <td>${clientCuit}</td>
+                            <td>${clientProv}</td>
+                    `;
+        table.appendChild(row);
+
+        hideInputs();
+        } else {
+            alert("Complete todos los campos")
+        }
+   }
+
+   function hideInputs(){
+        const inputs = document.getElementsByClassName("input");
+        for (const input of inputs) {
+            input.style.display = "none";
+        }
+        document.getElementById("btn").style.display = "block";
+        document.querySelector('input[type="button"][value="Aceptar"]').style.display = "none";
+        document.querySelector('input[type="button"][value="Cancelar"]').style.display = "none";
+   }
+
+</script>*@
 
 <h2>Listado de Clientes</h2>
 

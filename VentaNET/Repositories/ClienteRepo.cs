@@ -6,11 +6,12 @@ namespace VentaNET.Repositories
     {
         public ClienteRepo() { }
 
-        public bool AgregarCliente()
-        {
-            return false;
-        }
 
+        public bool AgregarCliente(Cliente cliente)
+        {
+            return true;
+            
+        }
         public List<Cliente> ListaDeClientes()
         {
             List<Cliente> listadoCliente = new List<Cliente>();
