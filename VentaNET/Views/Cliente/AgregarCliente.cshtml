@@ -2,19 +2,26 @@
 
 <h2>Agregar Cliente</h2>
 
-<form method="post">
+@using (Html.BeginForm("GuardarCliente", "Cliente", FormMethod.Post))
+{
+    @Html.TextBoxFor(model => model.Id)
+
+    <button type="submit">Guardar</button>
+}
+
+@*<form method="post">
     @Html.TextBoxFor(m => m.Id);
     @Html.TextBoxFor(m => m.RazonSocial);
     @Html.TextBoxFor(m => m.Domicilio);
     @Html.TextBoxFor(m => m.Provincia);
     @Html.TextBoxFor(m => m.Cuit);
 
-    @*<button type="button" onclick="location.href='@Url.Action("GuardarCliente","Cliente", new Cliente{Id = Model.Id, 
+    <button type="button" onclick="location.href='@Url.Action("GuardarCliente","Cliente", new Cliente{Id = Model.Id, 
         Cuit = Model.Cuit, 
         RazonSocial = Model.RazonSocial, 
         Domicilio = Model.Domicilio, 
         Provincia = Model.Provincia})'">AgregarUsando
-    </button>*@
+    </button>
+</form>*@
 
-    <button type="button" onclick="location.href='@Url.Action("GuardarCliente","Cliente", new Cliente{Id=Model.Id})'">AgregarUsando</button>
-</form>
+
