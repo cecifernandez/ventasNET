@@ -6,6 +6,8 @@ namespace VentaNET.Controllers
 {
     public class ClienteController : Controller
     {
+        
+        List<Cliente> clienteList = new List<Cliente>();
         ClienteRepo clienteRepo = new ClienteRepo();
 
         public IActionResult Index()
@@ -16,24 +18,51 @@ namespace VentaNET.Controllers
         public IActionResult Listado()
         {
 
-            ViewBag.Cliente = clienteRepo.ListaDeClientes();
+            ViewBag.Cliente = Listados.ListaCliente.Where(x => x.Estado == true);
             return View();
         }
+        public IActionResult Delete(Cliente cli)
+        {
+            clienteRepo.DeleteCliente(cli);
+            return RedirectToAction("Listado"); 
+        }
 
-        
         public IActionResult GuardarCliente(Cliente cliente)
         {
-            //instanciar obj cliente 
-            //pasar ese objeto al listado ListaDeClientes()
-            //llenar el objeto Cliente
+
+            bool existe = false;
+
+            Cliente existeCliente = new Cliente();
+
+            existe = clienteRepo.VerificarCliente(cliente);
+
+            if(existe)
+            {
+                clienteRepo.ModificarCliente(cliente);
+            }
+            else
+            {
+                cliente.Estado = true;
+
+                Listados.ListaCliente.Add(cliente);
+            }
             
+            
+            return RedirectToAction("Listado");
+        }
+
+        public IActionResult AgregarCliente(Cliente cli)
+        {
             return View();
         }
 
-        public IActionResult AgregarCliente()
+        public IActionResult Edit(int id)
         {
+            Cliente cli = new Cliente();
 
-            return View();
+            cli = Listados.ListaCliente.Find(x => x.Id == id);
+
+            return RedirectToAction("AgregarCliente", cli);
         }
     }
 }

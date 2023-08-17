@@ -2,14 +2,14 @@
 
 namespace VentaNET.Controllers
 {
-    public class StockController : Controller
+    public class VentaController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult ListadoProductos() 
+        public IActionResult Create()
         {
             return View();
         }

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<VentaNET.Models.Proveedor>
+<h2>Listado de Proveedores</h2>
+
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Id)</th>
+            <th>@Html.DisplayNameFor(model => model.RazonSocial)</th>
+            <th>@Html.DisplayNameFor(model => model.Domicilio)</th>
+            <th>@Html.DisplayNameFor(model => model.Cuit)</th>
+            <th>@Html.DisplayNameFor(model => model.Provincia)</th>
+        </tr>
+    </thead>
+
+    @{
+
+        if (ViewBag.Proveedor != null)
+        {
+            foreach (var prov in ViewBag.Proveedor)
+            {
+                <tr>
+                    <td>@prov.Id</td>
+                    <td>@prov.RazonSocial</td>
+                    <td>@prov.Domicilio</td>
+                    <td>@prov.Cuit</td>
+                    <td>@prov.Provincia</td>
+                    <td>
+                        @Html.ActionLink("Modificar", "Edit", "Proveedor", new{ id = prov.Id},  new { @class="btn btn-primary" })
+                        @Html.ActionLink("Delete", "Delete", "Proveedor",new{ id = prov.Id}, new { @class="btn btn-danger"})
+                    </td>
+                </tr>
+            }
+        }
+    }
+
+</table>

@@ -1,8 +1,9 @@
-﻿@model Cliente
+﻿@model Proveedor
 
-<h2>Agregar Cliente</h2>
 
-@using (Html.BeginForm("GuardarCliente", "Cliente", FormMethod.Post))
+<h2>Agregar Proveedor</h2>
+
+@using (Html.BeginForm("GuardarProv", "Proveedor", FormMethod.Post))
 {
     <div class="container">       
        <div class="panel-body">
@@ -32,20 +33,3 @@
         </div>
     </div>
 }
-
-@*<form method="post">
-    @Html.TextBoxFor(m => m.Id);
-    @Html.TextBoxFor(m => m.RazonSocial);
-    @Html.TextBoxFor(m => m.Domicilio);
-    @Html.TextBoxFor(m => m.Provincia);
-    @Html.TextBoxFor(m => m.Cuit);
-
-    <button type="button" onclick="location.href='@Url.Action("GuardarCliente","Cliente", new Cliente{Id = Model.Id, 
-        Cuit = Model.Cuit, 
-        RazonSocial = Model.RazonSocial, 
-        Domicilio = Model.Domicilio, 
-        Provincia = Model.Provincia})'">AgregarUsando
-    </button>
-</form>*@
-
-

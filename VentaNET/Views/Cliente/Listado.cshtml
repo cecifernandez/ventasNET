@@ -97,7 +97,11 @@
                     <td>@cliente.RazonSocial</td>
                     <td>@cliente.Domicilio</td>
                     <td>@cliente.Cuit</td>
-                    <td>@cliente.Provincia</td>           
+                    <td>@cliente.Provincia</td> 
+                    <td>
+                        @Html.ActionLink("Modificar", "Edit", "Cliente", new{ id = cliente.Id},  new { @class="btn btn-primary" })
+                        @Html.ActionLink("Delete", "Delete", "Cliente",new{ id = cliente.Id}, new { @class="btn btn-danger"})
+                    </td>
                 </tr>
             }
         }

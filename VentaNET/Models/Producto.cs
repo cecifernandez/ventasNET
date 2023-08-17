@@ -3,9 +3,14 @@
     public class Producto
     {
         public int Id { get; set; }
+        public int IdProveedor { get; set; }
 
-        public string? Tipo { get; set; }
+        public string? NombreProducto { get; set; }
 
-        public string? Descripcion { get; set; }
+        public string Descripcion { get; set; }
+        public double ImporteProducto { get; set; }
+
+        public bool Estado { get; set; }
+
     }
 }

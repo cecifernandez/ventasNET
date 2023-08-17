@@ -1,0 +1,12 @@
+﻿body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#form {
+    align-self:center;
+    /*margin-top: 15%;*/
+    width: 50%;
+}
+
