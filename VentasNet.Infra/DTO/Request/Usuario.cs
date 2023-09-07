@@ -8,11 +8,7 @@
 
         public string Password { get; set; }
 
-        //public Usuario()
-        //{
-        //    Id = 1;
-        //    UserName = "admin";
-        //    Password = "admin";
-        //}
+        public bool Estado { get; set; }
+
     }
 }

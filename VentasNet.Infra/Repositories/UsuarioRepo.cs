@@ -1,6 +1,6 @@
 ﻿using VentaNET.Models;
 
-namespace VentaNET.Repositories
+namespace VentasNet.Infra.Repositories
 {
     public class UsuarioRepo
     {
@@ -14,6 +14,22 @@ namespace VentaNET.Repositories
             {
                 return false;
             } 
+        }
+
+        public void ModificarUsuario(Usuario usuario)
+        {
+            Usuario user = Listados.ListaUsuario.FirstOrDefault(u => u.Password == usuario.Password);
+
+            if (user != null)
+            {
+                user.Password = usuario.Password;
+            }
+        }
+
+        public bool AgregarUsuario(UsuarioRepo user)
+        {
+            return true;
+
         }
     }
 }

@@ -27,7 +27,50 @@ namespace VentaNET.Controllers
             {
                 return View();
             }
-
         }
+
+        public IActionResult EditarUsuario(Usuario user)
+        {
+            UsuarioRepo userRepo = new UsuarioRepo();
+            
+            userRepo.ModificarUsuario(user);
+
+            
+            return RedirectToAction("Inicio");
+        }
+
+        public IActionResult GuardarUser(Usuario user)
+        {
+            UsuarioRepo userRepo = new UsuarioRepo();
+            bool existe = false;
+
+            Usuario existeUser = new Usuario();
+
+            existe = userRepo.VerificarUsuario(user);
+
+            if (existe)
+            {
+                userRepo.ModificarUsuario(user);
+            }
+            else
+            {
+                user.Estado = true;
+
+                Listados.ListaUsuario.Add(user);
+            }
+
+
+            return RedirectToAction("Inicio");
+        }
+
+        public IActionResult AgregarProv(Proveedor prov)
+        {
+            return View();
+        }
+        public IActionResult VerUsuario() 
+        { 
+            return View(); 
+        }
+
     }
 }

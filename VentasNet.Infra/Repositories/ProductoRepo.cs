@@ -1,6 +1,6 @@
 ﻿using VentaNET.Models;
 
-namespace VentaNET.Repositories
+namespace VentasNet.Infra.Repositories
 {
     public class ProductoRepo
     {

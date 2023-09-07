@@ -7,6 +7,9 @@
         public string? Cuit { get; set; }
         public string? Domicilio { get; set; }
         public string? Provincia { get; set; }
+
+        public string? Telefono { get; set; }
+
         public bool Estado { get; set; }
     }
 }

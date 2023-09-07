@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VentaNET.Models;
-using VentaNET.Repositories;
+using VentasNet.Infra.DTO.Request;
+using VentasNet.Infra.Repositories;
 
 namespace VentaNET.Controllers
 {
@@ -18,51 +19,34 @@ namespace VentaNET.Controllers
         public IActionResult Listado()
         {
 
-            ViewBag.Cliente = Listados.ListaCliente.Where(x => x.Estado == true);
+            ViewBag.Cliente = clienteRepo.GetClientes();
             return View();
         }
-        public IActionResult Delete(Cliente cli)
-        {
-            clienteRepo.DeleteCliente(cli);
-            return RedirectToAction("Listado"); 
-        }
+       
 
-        public IActionResult GuardarCliente(Cliente cliente)
-        {
-
-            bool existe = false;
-
-            Cliente existeCliente = new Cliente();
-
-            existe = clienteRepo.VerificarCliente(cliente);
-
-            if(existe)
-            {
-                clienteRepo.ModificarCliente(cliente);
-            }
-            else
-            {
-                cliente.Estado = true;
-
-                Listados.ListaCliente.Add(cliente);
-            }
-            
-            
+        public IActionResult GuardarCliente(ClienteReq cliente)
+        {  
             return RedirectToAction("Listado");
         }
 
-        public IActionResult AgregarCliente(Cliente cli)
+        public IActionResult AddCliente(ClienteReq cli)
         {
+            var result = clienteRepo.AddCliente(cli);
+
             return View();
         }
 
-        public IActionResult Edit(int id)
+        public IActionResult Edit(ClienteReq cli)
         {
-            Cliente cli = new Cliente();
+            var clienteResponse = clienteRepo.UpdateCliente(cli);
 
-            cli = Listados.ListaCliente.Find(x => x.Id == id);
 
             return RedirectToAction("AgregarCliente", cli);
+        }
+        public IActionResult Delete(ClienteReq cli)
+        {
+            var clienteResponse = clienteRepo.DeleteCliente(cli);
+            return RedirectToAction("Listado");
         }
     }
 }
