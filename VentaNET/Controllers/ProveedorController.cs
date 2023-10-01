@@ -1,14 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VentaNET.Models;
-using VentaNET.Repositories;
+using VentasNet.Infra.Repositories;
+using VentasNet.Infra.DTO.Request;
+using VentasNet.Infra.Interfaces;
 
 namespace VentaNET.Controllers
 {
     public class ProveedorController : Controller
     {
-        List<Proveedor> provList = new List<Proveedor>();
-        ProveedorRepo provRepo = new ProveedorRepo();
+        IProveedorRepo proveedorRepo;
 
+        public ProveedorController(IProveedorRepo _proveedorRepo)
+        {
+            proveedorRepo = _proveedorRepo;
+        }
         public IActionResult Index()
         {
             return View();
@@ -24,46 +29,25 @@ namespace VentaNET.Controllers
             ViewBag.Proveedor = Listados.ListaProveedor.Where(x => x.Estado == true);
             return View();
         }
-        public IActionResult Delete(Proveedor prov)
+        public IActionResult Delete(ProveedorReq prov)
         {
-            provRepo.DeleteProveedor(prov);
+            proveedorRepo.DeleteProveedor(prov);
             return RedirectToAction("Listado");
         }
 
-        public IActionResult GuardarProv(Proveedor prov)
-        {
-
-            bool existe = false;
-
-            Proveedor existeProv = new Proveedor();
-
-            existe = provRepo.VerificarProv(prov);
-
-            if (existe)
-            {
-                provRepo.ModificarProveedor(prov);
-            }
-            else
-            {
-                prov.Estado = true;
-
-                Listados.ListaProveedor.Add(prov);
-            }
-
-
+        public IActionResult GuardarProv(ProveedorReq prov)
+        { 
             return RedirectToAction("Listado");
         }
 
-        public IActionResult AgregarProv(Proveedor prov)
+        public IActionResult AgregarProv(ProveedorReq prov)
         {
             return View();
         }
 
-        public IActionResult Edit(int id)
+        public IActionResult Edit(ProveedorReq prov)
         {
-            Proveedor prov = new Proveedor();
-
-            prov = Listados.ListaProveedor.Find(x => x.Id == id);
+            var provResponse = proveedorRepo.UpdateProveedor(prov);
 
             return RedirectToAction("AgregarProv", prov);
         }

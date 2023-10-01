@@ -1,15 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VentaNET.Models;
 using VentasNet.Infra.DTO.Request;
-using VentasNet.Infra.Repositories;
+using VentasNet.Infra.Interfaces;
 
 namespace VentaNET.Controllers
 {
     public class ClienteController : Controller
     {
-        
-        List<Cliente> clienteList = new List<Cliente>();
-        ClienteRepo clienteRepo = new ClienteRepo();
+
+        IClienteRepo clienteRepo;
+
+        public ClienteController(IClienteRepo _clienteRepo)
+        {
+            clienteRepo = _clienteRepo;
+        }
 
         public IActionResult Index()
         {
@@ -29,19 +32,28 @@ namespace VentaNET.Controllers
             return RedirectToAction("Listado");
         }
 
-        public IActionResult AddCliente(ClienteReq cli)
+        public IActionResult AgregarCliente(ClienteReq cli)
         {
             var result = clienteRepo.AddCliente(cli);
 
             return View();
         }
 
-        public IActionResult Edit(ClienteReq cli)
+        //[HttpPost]
+        public IActionResult UpdateCliente(ClienteReq cli)
         {
             var clienteResponse = clienteRepo.UpdateCliente(cli);
 
 
-            return RedirectToAction("AgregarCliente", cli);
+            return RedirectToAction("Listado");
+        }
+
+        public IActionResult Edit(ClienteReq cli)
+        {
+            var clienteResponse = clienteRepo.GetClienteCuit(cli.Cuit);
+
+
+            return View();
         }
         public IActionResult Delete(ClienteReq cli)
         {

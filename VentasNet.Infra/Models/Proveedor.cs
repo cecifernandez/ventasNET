@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace VentasNET.Entity.Models;
+namespace VentasNet.Infra.Data;
 
 public partial class Proveedor
 {

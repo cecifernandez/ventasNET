@@ -1,6 +1,6 @@
-﻿namespace VentaNET.Models
+﻿namespace VentasNet.Infra.DTO.Request
 {
-    public class Producto
+    public class ProductoReq
     {
         public int Id { get; set; }
         public int IdProveedor { get; set; }

@@ -12,9 +12,7 @@ namespace VentasNET.Entity.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Cliente> entity)
         {
-            entity.HasKey(e => e.IdCliente);
-
-            entity.ToTable("cliente");
+            entity.HasKey(e => e.IdCliente).HasName("PK_cliente");
 
             entity.Property(e => e.Apellido)
             .IsRequired()
@@ -27,27 +25,6 @@ namespace VentasNET.Entity.Data.Configurations
             entity.Property(e => e.Domicilio)
             .IsRequired()
             .HasMaxLength(100)
-            .IsUnicode(false);
-            entity.Property(e => e.FechaAlta).HasColumnType("datetime");
-            entity.Property(e => e.FechaBaja).HasColumnType("datetime");
-            entity.Property(e => e.Localidad)
-            .IsRequired()
-            .HasMaxLength(50)
-            .IsUnicode(false);
-            entity.Property(e => e.Nombre)
-            .IsRequired()
-            .HasMaxLength(50)
-            .IsUnicode(false);
-            entity.Property(e => e.Provincia)
-            .IsRequired()
-            .HasMaxLength(50)
-            .IsUnicode(false);
-            entity.Property(e => e.RazonSocial)
-            .HasMaxLength(100)
-            .IsUnicode(false);
-            entity.Property(e => e.Telefeno)
-            .IsRequired()
-            .HasMaxLength(15)
             .IsUnicode(false);
 
             OnConfigurePartial(entity);

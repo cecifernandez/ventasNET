@@ -5,15 +5,15 @@
 
 //namespace VentasNET.Entity.Data.Configurations
 //{
-//    public partial class ProveedorConfiguration : IEntityTypeConfiguration<Proveedor>
+//    public partial class ProductoConfiguration : IEntityTypeConfiguration<Producto>
 //    {
-//        public void Configure(EntityTypeBuilder<Proveedor> entity)
+//        public void Configure(EntityTypeBuilder<Producto> entity)
 //        {
 //            entity.HasKey(e => e.IdProveedor);
 
 //            OnConfigurePartial(entity);
 //        }
 
-//        partial void OnConfigurePartial(EntityTypeBuilder<Proveedor> entity);
+//        partial void OnConfigurePartial(EntityTypeBuilder<Producto> entity);
 //    }
 //}

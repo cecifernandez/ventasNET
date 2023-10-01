@@ -1,8 +1,8 @@
-﻿namespace VentasNet.Infra.DTO.Request
+﻿namespace VentaNET.Models
 {
-    public class ClienteReq
+    public class ProveedorReq
     {
-        public int IdCliente { get; set; }
+        public int IdProveedor { get; set; }
 
         public string RazonSocial { get; set; }
 
@@ -27,6 +27,6 @@
         public DateTime? FechaBaja { get; set; }
 
         public int IdUsuario { get; set; }
-
+        
     }
 }

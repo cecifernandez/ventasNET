@@ -10,10 +10,6 @@ namespace VentasNET.Entity.Data;
 
 public partial class VentasNetContext : DbContext
 {
-    public VentasNetContext()
-    {
-    }
-
     public VentasNetContext(DbContextOptions<VentasNetContext> options)
         : base(options)
     {
@@ -21,19 +17,20 @@ public partial class VentasNetContext : DbContext
 
     public virtual DbSet<Cliente> Cliente { get; set; }
 
-    public virtual DbSet<Usuario> Usuario { get; set; }
+    public virtual DbSet<Producto> Producto { get; set; }
+
     public virtual DbSet<Proveedor> Proveedor { get; set; }
 
-
+    public virtual DbSet<Usuario> Usuario { get; set; }
 
     public virtual DbSet<VwUsuario> VwUsuario { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
             modelBuilder.ApplyConfiguration(new Configurations.ClienteConfiguration());
-            modelBuilder.ApplyConfiguration(new Configurations.UsuarioConfiguration());
+            modelBuilder.ApplyConfiguration(new Configurations.ProductoConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.ProveedorConfiguration());
-
+            modelBuilder.ApplyConfiguration(new Configurations.UsuarioConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.VwUsuarioConfiguration());
 
         OnModelCreatingPartial(modelBuilder);

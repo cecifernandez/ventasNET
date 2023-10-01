@@ -1,4 +1,6 @@
-﻿namespace VentaNET.Models
+﻿using VentasNET.Entity.Models;
+
+namespace VentaNET.Models
 {
     public class Venta : Cliente
     {

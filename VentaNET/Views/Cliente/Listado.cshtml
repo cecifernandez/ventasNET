@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Cliente>
+﻿@using VentasNet.Infra.DTO.Request
+@model IEnumerable<ClienteReq>
 
 @*<h2>
     Cargar Clientes
@@ -71,6 +72,10 @@
 
 </script>*@
 
+@{
+    var clienteReq = new ClienteReq();
+}
+
 <h2>Listado de Clientes</h2>
 
 
@@ -78,7 +83,7 @@
     
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.Id)</th>
+            @* <th>@Html.DisplayNameFor(model => model.Id)</th> *@
             <th>@Html.DisplayNameFor(model => model.RazonSocial)</th>
             <th>@Html.DisplayNameFor(model => model.Domicilio)</th>
             <th>@Html.DisplayNameFor(model => model.Cuit)</th>
@@ -90,17 +95,17 @@
 
         if(ViewBag.Cliente != null)
         {           
-            foreach(var cliente in ViewBag.Cliente)
+            foreach(ClienteReq cliente in ViewBag.Cliente)
             {
                 <tr>
-                    <td>@cliente.Id</td>
+
                     <td>@cliente.RazonSocial</td>
                     <td>@cliente.Domicilio</td>
                     <td>@cliente.Cuit</td>
                     <td>@cliente.Provincia</td> 
                     <td>
-                        @Html.ActionLink("Modificar", "Edit", "Cliente", new{ id = cliente.Id},  new { @class="btn btn-primary" })
-                        @Html.ActionLink("Delete", "Delete", "Cliente",new{ id = cliente.Id}, new { @class="btn btn-danger"})
+                        @Html.ActionLink("Modificar", "Edit", "Cliente",cliente, new { @class="btn btn-primary" })
+                        @Html.ActionLink("Delete", "Delete", "Cliente",Model, new { @class="btn btn-danger"})
                     </td>
                 </tr>
             }

@@ -3,11 +3,11 @@
 using System;
 using System.Collections.Generic;
 
-namespace VentasNET.Entity.Models;
+namespace VentasNet.Infra.Data;
 
-public partial class Proveedor
+public partial class Cliente
 {
-    public int IdProveedor { get; set; }
+    public int IdCliente { get; set; }
 
     public string RazonSocial { get; set; }
 

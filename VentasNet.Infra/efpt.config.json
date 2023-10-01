@@ -5,11 +5,11 @@
    "DefaultDacpacSchema": null,
    "FilterSchemas": false,
    "IncludeConnectionString": false,
-   "ModelNamespace": null,
-   "OutputContextPath": "Data",
+   "ModelNamespace": "Data",
+   "OutputContextPath": null,
    "OutputPath": "Models",
    "PreserveCasingWithRegex": true,
-   "ProjectRootNamespace": "VentasNET.Entity",
+   "ProjectRootNamespace": "VentasNet.Infra",
    "Schemas": null,
    "SelectedHandlebarsLanguage": 0,
    "SelectedToBeGenerated": 0,
@@ -30,10 +30,6 @@
       {
          "Name": "[dbo].[Usuario]",
          "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[vwUsuario]",
-         "ObjectType": 3
       }
    ],
    "UiHint": "desktop-0u5lohe.VentasNet.dbo",
@@ -41,7 +37,7 @@
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": false,
    "UseDateOnlyTimeOnly": false,
-   "UseDbContextSplitting": true,
+   "UseDbContextSplitting": false,
    "UseFluentApiOnly": true,
    "UseHandleBars": false,
    "UseHierarchyId": false,

@@ -1,11 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VentaNET.Models;
-using VentaNET.Repositories;
+using VentasNet.Infra.DTO.Request;
+using VentasNet.Infra.Interfaces;
+using VentasNet.Infra.Repositories;
 
 namespace VentaNET.Controllers
 {
     public class UsuarioController : Controller
     {
+        IUsuarioRepo usuarioRepo;
+
+        public UsuarioController(IUsuarioRepo _usuarioRepo)
+        {
+            usuarioRepo = _usuarioRepo;
+        }
+
+
         public IActionResult Index()
         {
             return View();
@@ -16,10 +26,11 @@ namespace VentaNET.Controllers
             return View();
         }
 
-        public IActionResult Verificar(Usuario user)
+        public IActionResult Verificar(UsuarioReq usuario)
         {
-            UsuarioRepo userRepo = new UsuarioRepo();
-            if (userRepo.VerificarUsuario(user))
+            var usuarioResponse = usuarioRepo.VerificarUsuario(usuario);
+
+            if (usuarioResponse.Logueado)
             {
                 return RedirectToAction("Listado", "Cliente");
             }
@@ -29,47 +40,23 @@ namespace VentaNET.Controllers
             }
         }
 
-        public IActionResult EditarUsuario(Usuario user)
+        public IActionResult EditarUsuario(UsuarioReq user)
         {
-            UsuarioRepo userRepo = new UsuarioRepo();
-            
-            userRepo.ModificarUsuario(user);
+            var userResponse = usuarioRepo.UpdateUsuario(user);
 
-            
+
+            return RedirectToAction("EditarUsuario");
+        }
+
+        public IActionResult GuardarUser(UsuarioReq user)
+        {
             return RedirectToAction("Inicio");
         }
 
-        public IActionResult GuardarUser(Usuario user)
-        {
-            UsuarioRepo userRepo = new UsuarioRepo();
-            bool existe = false;
 
-            Usuario existeUser = new Usuario();
-
-            existe = userRepo.VerificarUsuario(user);
-
-            if (existe)
-            {
-                userRepo.ModificarUsuario(user);
-            }
-            else
-            {
-                user.Estado = true;
-
-                Listados.ListaUsuario.Add(user);
-            }
-
-
-            return RedirectToAction("Inicio");
-        }
-
-        public IActionResult AgregarProv(Proveedor prov)
+        public IActionResult VerUsuario()
         {
             return View();
-        }
-        public IActionResult VerUsuario() 
-        { 
-            return View(); 
         }
 
     }
