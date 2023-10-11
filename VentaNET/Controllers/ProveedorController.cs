@@ -18,38 +18,44 @@ namespace VentaNET.Controllers
         {
             return View();
         }
-        public IActionResult Create()
-        {
-            return View();
-        }
 
         public IActionResult Listado()
         {
 
-            ViewBag.Proveedor = Listados.ListaProveedor.Where(x => x.Estado == true);
+            ViewBag.Proveedor = proveedorRepo.GetProveedores();
             return View();
         }
         public IActionResult Delete(ProveedorReq prov)
         {
-            proveedorRepo.DeleteProveedor(prov);
+            var provResponse = proveedorRepo.DeleteProveedor(prov);
             return RedirectToAction("Listado");
         }
 
         public IActionResult GuardarProv(ProveedorReq prov)
-        { 
+        {
+            var result = proveedorRepo.AddProveedor(prov);
             return RedirectToAction("Listado");
         }
 
         public IActionResult AgregarProv(ProveedorReq prov)
         {
+            
             return View();
         }
 
         public IActionResult Edit(ProveedorReq prov)
         {
+            var provResponse = proveedorRepo.GetProveedorCuit(prov.Cuit);
+
+            return View();
+        }
+
+        public IActionResult UpdateProveedor(ProveedorReq prov)
+        {
             var provResponse = proveedorRepo.UpdateProveedor(prov);
 
-            return RedirectToAction("AgregarProv", prov);
+
+            return RedirectToAction("Listado");
         }
     }
 }

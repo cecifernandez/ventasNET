@@ -20,16 +20,18 @@ namespace VentasNet.Infra.Repositories
         {
             UsuarioResponse usuarioResponse = new UsuarioResponse();
 
-            var user = _context.Usuario.Where(x => x.UserName == usuario.UserName).FirstOrDefault();
+            var existeUser = _context.Usuario.Where(x => x.Password == usuario.Password).FirstOrDefault();
 
-            if (user != null)
+            if (existeUser != null)
             {
                 try
                 {
-                    user.Password = usuario.Password;
-                    user.UserName = usuario.UserName;
+                    existeUser.Password = usuario.Password != null ? usuario.Password : existeUser.Password;
+                    existeUser.UserName = usuario.UserName != null ? usuario.UserName : existeUser.UserName;
+                    existeUser.Email = usuario.Email != null ? usuario.Email : existeUser.Email;
+                    existeUser.IdTipoUsuario = usuario.IdTipoUsuario;   
 
-                    _context.Update(user);
+                    _context.Update(existeUser);
                     _context.SaveChanges();
 
                     usuarioResponse.Guardar = true;
@@ -70,13 +72,11 @@ namespace VentasNet.Infra.Repositories
         }
 
 
-        public Usuario GetUsuarioId(int user) 
+        public Usuario GetUsuarioUsername(string username) 
         {
-            var usuario = new Usuario();
+            var user = _context.Usuario.Where(x => x.UserName == username).FirstOrDefault();
 
-            usuario = _context.Usuario.Where(x => x.IdUsuario == user).FirstOrDefault();
-
-            return usuario;
+            return user;
         }
 
       

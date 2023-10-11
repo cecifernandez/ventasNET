@@ -6,6 +6,7 @@ using VentasNET.Entity.Models;
 using VentasNet.Infra.Interfaces;
 
 
+
 namespace VentasNet.Infra.Repositories
 {
     public class ProductoRepo : IProductoRepo
@@ -18,9 +19,9 @@ namespace VentasNet.Infra.Repositories
             _context = context;
         }
 
-        public Producto GetProductoId(int id)
+        public Producto GetProductoCodigo(string codigo)
         {
-            var prod = _context.Producto.Where(x => x.Id == id).FirstOrDefault();
+            var prod = _context.Producto.Where(x => x.Codigo == codigo).FirstOrDefault();
 
             return prod;
         }
@@ -37,6 +38,7 @@ namespace VentasNet.Infra.Repositories
                 prodReq.NombreProducto = item.NombreProducto;
                 prodReq.Descripcion = item.Descripcion;
                 prodReq.ImporteProducto = item.ImporteProducto;
+                prodReq.Codigo = item.Codigo;
                 prodReq.Id = item.Id;
                 prodReq.Estado = item.Estado;
             
@@ -51,10 +53,10 @@ namespace VentasNet.Infra.Repositories
             Producto prod = new Producto()
             {
                 IdProveedor = producto.IdProveedor,
-                NombreProducto = producto.NombreProducto,
-                Descripcion = producto.Descripcion,
-                ImporteProducto = (int)producto.ImporteProducto,
-                Id = producto.Id,
+                NombreProducto = producto.NombreProducto != null ? producto.NombreProducto : string.Empty,
+                Descripcion = producto.Descripcion != null ? producto.Descripcion : string.Empty,
+                Codigo = producto.Codigo != null ? producto.Codigo : string.Empty,
+                ImporteProducto = producto.ImporteProducto != null ? producto.ImporteProducto : string.Empty,
                 Estado = producto.Estado
 
             };
@@ -69,7 +71,7 @@ namespace VentasNet.Infra.Repositories
             //verificar si prod existe
             if (producto.Id != null)
             {
-                var existeProd = GetProductoId(producto.Id);
+                var existeProd = GetProductoCodigo(producto.Codigo);
 
                 if (existeProd == null)
                 {
@@ -103,7 +105,7 @@ namespace VentasNet.Infra.Repositories
         {
             ProductoResponse prodResponse = new ProductoResponse();
 
-            var existeProd = GetProductoId(producto.Id);
+            var existeProd = GetProductoCodigo(producto.Codigo);
 
             if (existeProd != null)
             {
@@ -135,15 +137,18 @@ namespace VentasNet.Infra.Repositories
         {
             ProductoResponse prodResponse = new ProductoResponse();
 
-            var existeProd = GetProductoId(producto.Id);
+            var existeProd = GetProductoCodigo(producto.Codigo);
 
             if (existeProd != null)
             {
                 try
                 {
-                    existeProd.NombreProducto = producto.NombreProducto;
-                    existeProd.Descripcion = producto.Descripcion;
                     
+                    existeProd.NombreProducto = producto.NombreProducto != null ? producto.NombreProducto : existeProd.NombreProducto;
+                    existeProd.Descripcion = producto.Descripcion != null ? producto.Descripcion : existeProd.Descripcion;
+                    existeProd.Codigo = producto.Codigo != null ? producto.Codigo : existeProd.Codigo;
+                    existeProd.ImporteProducto = producto.ImporteProducto != null ? producto.ImporteProducto : existeProd.ImporteProducto;
+                    existeProd.Estado = true;
 
                     _context.Update(existeProd);
                     _context.SaveChanges();

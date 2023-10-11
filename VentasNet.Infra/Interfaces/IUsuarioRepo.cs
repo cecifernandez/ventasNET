@@ -15,6 +15,6 @@ namespace VentasNet.Infra.Interfaces
         public UsuarioResponse UpdateUsuario(UsuarioReq user);
         public UsuarioResponse VerificarUsuario(UsuarioReq user);
 
-        public Usuario GetUsuarioId(int id);
+        public Usuario GetUsuarioUsername(string username);
     }
 }

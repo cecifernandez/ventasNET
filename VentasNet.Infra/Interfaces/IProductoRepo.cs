@@ -17,7 +17,8 @@ namespace VentasNet.Infra.Interfaces
         public Producto MapeoProducto(ProductoReq producto);
         public ProductoResponse UpdateProducto(ProductoReq producto);
         public ProductoResponse DeleteProducto(ProductoReq producto);
-        public Producto GetProductoId(int id);
+        public Producto GetProductoCodigo(string codigo);
         public List<ProductoReq> GetProductos();
+        
     }
 }

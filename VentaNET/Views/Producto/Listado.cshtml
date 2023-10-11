@@ -3,14 +3,19 @@
 <h2>Listado de Productos</h2>
 
 
+@{
+    var prodReq = new ProductoReq();
+}
+
 <table class="table">
 
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.Id)</th>
-            <th>@Html.DisplayNameFor(model => model.IdProveedor)</th>
+            @* <th>@Html.DisplayNameFor(model => model.Id)</th> *@
+            @* <th>@Html.DisplayNameFor(model => model.IdProveedor)</th> *@
             <th>@Html.DisplayNameFor(model => model.NombreProducto)</th>
             <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
+            <th>@Html.DisplayNameFor(model => model.Codigo)</th>
             <th>@Html.DisplayNameFor(model => model.ImporteProducto)</th>
         </tr>
     </thead>
@@ -19,17 +24,17 @@
 
         if (ViewBag.Producto != null)
         {
-            foreach (var prod in ViewBag.Producto)
+            foreach (ProductoReq prod in ViewBag.Producto)
             {
                 <tr>
-                    <td>@prod.Id</td>
-                    <td>@prod.IdProveedor</td>
+                    
                     <td>@prod.NombreProducto</td>
                     <td>@prod.Descripcion</td>
+                    <td>@prod.Codigo</td>
                     <td>@prod.ImporteProducto</td>
                     <td>
-                        @Html.ActionLink("Modificar", "Edit", "Producto", new{ id = prod.Id},  new { @class="btn btn-primary" })
-                        @Html.ActionLink("Delete", "Delete", "Producto",new{ id = prod.Id}, new { @class="btn btn-danger"})
+                        @Html.ActionLink("Modificar", "Edit", "Producto", prod,  new { @class="btn btn-primary" })
+                        @Html.ActionLink("Delete", "Delete", "Producto",prod, new { @class="btn btn-danger"})
                     </td>
                 </tr>
             }

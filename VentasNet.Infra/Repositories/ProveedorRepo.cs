@@ -1,10 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using VentasNET.Entity.Data;
 using VentaNET.Models;
 using VentasNet.Infra.DTO.Request;
 using VentasNet.Infra.DTO.Response;
-using VentasNet.Infra.Interfaces;
-using VentasNET.Entity.Data;
 using VentasNET.Entity.Models;
+using VentasNet.Infra.Interfaces;
 
 namespace VentasNet.Infra.Repositories;
 
@@ -34,7 +33,7 @@ public class ProveedorRepo : IProveedorRepo
 
                     provNew.Estado = true;
                     provNew.FechaAlta = DateTime.Now;
-                    provNew.FechaBaja = DateTime.MinValue;
+                    
 
 
                     _context.Add(provNew);
@@ -58,18 +57,18 @@ public class ProveedorRepo : IProveedorRepo
     {
         Proveedor prov = new Proveedor()
         {
-            Apellido = proveedor.Apellido,
-            Nombre = proveedor.Nombre,
-            Cuit = proveedor.Cuit,
-            Domicilio =proveedor.Domicilio,
-            Telefeno = proveedor.Telefeno,
-            IdProveedor = proveedor.IdProveedor,
-            RazonSocial = proveedor.RazonSocial,
-            Localidad = proveedor.Localidad,
-            Provincia = proveedor.Provincia,
-            Estado = proveedor.Estado,
-            FechaAlta = proveedor.FechaAlta,
-            FechaBaja = proveedor.FechaBaja,
+            Apellido = proveedor.Apellido != null ? proveedor.Apellido : string.Empty,
+            Nombre = proveedor.Nombre != null ? proveedor.Nombre : string.Empty,
+            Cuit = proveedor.Cuit != null ? proveedor.Cuit : string.Empty,
+            Domicilio =proveedor.Domicilio != null ? proveedor.Domicilio : string.Empty,
+            Telefeno = proveedor.Telefeno != null ? proveedor.Telefeno : string.Empty,
+            
+            RazonSocial = proveedor.RazonSocial != null ? proveedor.RazonSocial : string.Empty,
+            Localidad = proveedor.Localidad != null ? proveedor.Localidad : string.Empty,
+            Provincia = proveedor.Provincia != null ? proveedor.Provincia : string.Empty,
+            Estado = true,
+            FechaAlta = proveedor.FechaAlta != null ? proveedor.FechaAlta : DateTime.Now,
+            FechaBaja = proveedor.FechaBaja != null ? proveedor.FechaBaja : DateTime.Now,
             IdUsuario = proveedor.IdUsuario,
         };
 
@@ -87,7 +86,16 @@ public class ProveedorRepo : IProveedorRepo
             try
             {
                 //existeProv.Telefeno = proveedor.Telefono;
-                existeProv.RazonSocial = proveedor.RazonSocial;
+                existeProv.RazonSocial = proveedor.RazonSocial != null ? proveedor.RazonSocial : existeProv.RazonSocial;
+                existeProv.Apellido = proveedor.Apellido != null ? proveedor.Apellido : existeProv.Apellido;
+                existeProv.Nombre = proveedor.Nombre != null ? proveedor.Nombre : existeProv.Nombre;
+                existeProv.Cuit = proveedor.Cuit != null ? proveedor.Cuit : existeProv.Cuit;
+                existeProv.Domicilio = proveedor.Domicilio != null ? proveedor.Domicilio : existeProv.Domicilio;
+                existeProv.Telefeno = proveedor.Telefeno != null ? proveedor.Telefeno : existeProv.Telefeno;
+                existeProv.Localidad = proveedor.Localidad != null ? proveedor.Localidad : existeProv.Localidad;
+                existeProv.Provincia = proveedor.Provincia != null ? proveedor.Provincia : existeProv.Provincia;
+                existeProv.Estado = true;
+                existeProv.IdUsuario = proveedor.IdUsuario != null ? proveedor.IdUsuario : existeProv.IdUsuario;
 
 
                 _context.Update(existeProv);
@@ -161,6 +169,7 @@ public class ProveedorRepo : IProveedorRepo
             provReq.Domicilio = item.Domicilio;
             provReq.Localidad = item.Localidad;
             provReq.Telefeno = item.Telefeno;
+            provReq.Provincia = item.Provincia;
             provReq.Estado = item.Estado;
             provReq.FechaAlta = item.FechaAlta;
             provReq.FechaBaja = item.FechaBaja;

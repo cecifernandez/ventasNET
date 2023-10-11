@@ -22,7 +22,7 @@ namespace VentaNET.Controllers
         public IActionResult Listado()
         {
 
-            ViewBag.Producto = Listados.ListaProducto.Where(x => x.Estado == true);
+            ViewBag.Producto = prodRepo.GetProductos();
             return View();
         }
         public IActionResult Delete(ProductoReq prod)
@@ -33,7 +33,7 @@ namespace VentaNET.Controllers
 
         public IActionResult GuardarProd(ProductoReq prod)
         {
-
+            var result = prodRepo.AddProducto(prod);
             return RedirectToAction("Listado");
         }
 
@@ -42,11 +42,19 @@ namespace VentaNET.Controllers
             return View();
         }
 
+        public IActionResult UpdateProducto(ProductoReq prod)
+        {
+            var clienteResponse = prodRepo.UpdateProducto(prod);
+
+
+            return RedirectToAction("Listado");
+        }
+
         public IActionResult Edit(ProductoReq prod)
         {
-            var prodResponse = prodRepo.UpdateProducto(prod);
+            var prodResponse = prodRepo.GetProductoCodigo(prod.Codigo);
 
-            return RedirectToAction("AgregarProd", prod);
+            return View();
         }
     }
 }

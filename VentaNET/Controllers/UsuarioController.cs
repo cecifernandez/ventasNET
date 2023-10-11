@@ -40,13 +40,23 @@ namespace VentaNET.Controllers
             }
         }
 
-        public IActionResult EditarUsuario(UsuarioReq user)
+        public IActionResult UpdateUsuario(UsuarioReq user)
         {
             var userResponse = usuarioRepo.UpdateUsuario(user);
 
 
-            return RedirectToAction("EditarUsuario");
+            return RedirectToAction("Inicio");
         }
+
+        public IActionResult Edit(UsuarioReq user)
+        {
+            var userResponse = usuarioRepo.GetUsuarioUsername(user.UserName);
+
+
+            return View();
+        }
+
+
 
         public IActionResult GuardarUser(UsuarioReq user)
         {

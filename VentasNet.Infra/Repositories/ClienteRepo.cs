@@ -12,18 +12,18 @@ namespace VentasNet.Infra.Repositories
         private readonly VentasNetContext _context;
 
         //Inyectar dependencia
-        public ClienteRepo(VentasNetContext context) 
-        { 
+        public ClienteRepo(VentasNetContext context)
+        {
             _context = context;
         }
 
         public ClienteResponse AddCliente(ClienteReq cliente)
         {
-            
+
             ClienteResponse clienteResponse = new ClienteResponse();
 
             //verificar si cliente existe
-            if(cliente.Cuit != null)
+            if (cliente.Cuit != null)
             {
                 var existeCliente = GetClienteCuit(cliente.Cuit);
 
@@ -35,7 +35,7 @@ namespace VentasNet.Infra.Repositories
 
                         clienteNew.Estado = true;
                         clienteNew.FechaAlta = DateTime.Now;
-                        
+
 
 
                         _context.Add(clienteNew);
@@ -58,20 +58,19 @@ namespace VentasNet.Infra.Repositories
 
         public Cliente MapeoCliente(ClienteReq cliente)
         {
-            Cliente cliente1 = new Cliente() 
+            Cliente cliente1 = new Cliente()
             {
-                Apellido = cliente.Apellido,
-                Nombre = cliente.Nombre,
-                Cuit    = cliente.Cuit,
-                Domicilio = cliente.Domicilio,
-                Telefeno =cliente.Telefeno != null ? string.Empty : cliente.Telefeno,
-                IdCliente   = cliente.IdCliente ,
-                RazonSocial = cliente.RazonSocial,
-                Localidad = cliente.Localidad != null ? string.Empty : cliente.Localidad,
-                Provincia = cliente.Provincia,
-                Estado = cliente.Estado,
-                FechaAlta = cliente.FechaAlta,
-                FechaBaja = cliente.FechaBaja,
+                Apellido = cliente.Apellido != null ? cliente.Apellido : string.Empty,
+                Nombre = cliente.Nombre != null ? cliente.Nombre : string.Empty,
+                Cuit = cliente.Cuit != null ? cliente.Cuit : string.Empty,
+                Domicilio = cliente.Domicilio != null ? cliente.Domicilio : string.Empty,
+                Telefeno = cliente.Telefeno != null ? cliente.Telefeno : string.Empty,
+                RazonSocial = cliente.RazonSocial != null ? cliente.RazonSocial : string.Empty,
+                Localidad = cliente.Localidad != null ? cliente.Localidad : string.Empty,
+                Provincia = cliente.Provincia != null ? cliente.Provincia : string.Empty,
+                Estado = cliente.Estado != null ? cliente.Estado : true,
+                FechaAlta = cliente.FechaAlta != null ? cliente.FechaAlta : DateTime.Now,
+                FechaBaja = cliente.FechaBaja != null ? cliente.FechaBaja : DateTime.Now,
                 IdUsuario = cliente.IdUsuario,
             };
 
@@ -93,11 +92,11 @@ namespace VentasNet.Infra.Repositories
                     existeCliente.Cuit = cliente.Cuit != null ? cliente.Cuit : existeCliente.Cuit;
                     existeCliente.Domicilio = cliente.Domicilio != null ? cliente.Domicilio : existeCliente.Domicilio;
                     existeCliente.Telefeno = cliente.Telefeno != null ? cliente.Telefeno : existeCliente.Telefeno;
-                    existeCliente.IdCliente = cliente.IdCliente != null ? cliente.IdCliente : existeCliente.IdCliente;
+                    //existeCliente.IdCliente = cliente.IdCliente != null ? cliente.IdCliente : existeCliente.IdCliente;
                     existeCliente.RazonSocial = cliente.RazonSocial != null ? cliente.RazonSocial : existeCliente.RazonSocial;
                     existeCliente.Localidad = cliente.Localidad != null ? cliente.Localidad : existeCliente.Localidad;
                     existeCliente.Provincia = cliente.Provincia != null ? cliente.Provincia : existeCliente.Provincia;
-                    existeCliente.Estado = cliente.Estado != null ? cliente.Estado : true;
+                    existeCliente.Estado = /*cliente.Estado != null ? cliente.Estado : */true;
                     //existeCliente.FechaAlta = cliente.FechaAlta != null ? cliente.FechaAlta : existeCliente.FechaAlta;
                     //existeCliente.FechaBaja = cliente.FechaBaja;
                     existeCliente.IdUsuario = cliente.IdUsuario != null ? cliente.IdUsuario : existeCliente.IdUsuario;
@@ -112,7 +111,7 @@ namespace VentasNet.Infra.Repositories
                 catch (Exception ex)
                 {
                     clienteResponse.Mensaje = "Ocurrió un error al modificar cliente";
-                    clienteResponse.Guardar= false;
+                    clienteResponse.Guardar = false;
                 }
 
             }
@@ -158,7 +157,7 @@ namespace VentasNet.Infra.Repositories
         {
             var cliente = _context.Cliente.Where(x => x.Cuit == cuit).FirstOrDefault();
 
-            return cliente;  
+            return cliente;
         }
 
         public List<ClienteReq> GetClientes()
@@ -166,7 +165,7 @@ namespace VentasNet.Infra.Repositories
             List<ClienteReq> listadoClientes = new List<ClienteReq>();
             var lista = _context.Cliente.Where(x => x.Estado != false).ToList();
 
-            foreach(var item in lista)
+            foreach (var item in lista)
             {
                 ClienteReq clienteReq = new ClienteReq();
                 clienteReq.Nombre = item.Nombre;
@@ -175,7 +174,7 @@ namespace VentasNet.Infra.Repositories
                 clienteReq.Cuit = item.Cuit;
                 clienteReq.RazonSocial = item.RazonSocial;
                 clienteReq.Provincia = item.Provincia;
-                clienteReq.Domicilio = item.Domicilio; 
+                clienteReq.Domicilio = item.Domicilio;
                 clienteReq.Localidad = item.Localidad;
                 clienteReq.Telefeno = item.Telefeno;
                 clienteReq.Estado = item.Estado;

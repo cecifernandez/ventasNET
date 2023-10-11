@@ -28,14 +28,15 @@ namespace VentaNET.Controllers
        
 
         public IActionResult GuardarCliente(ClienteReq cliente)
-        {  
+        {
+            var result = clienteRepo.AddCliente(cliente);
             return RedirectToAction("Listado");
         }
 
+       
         public IActionResult AgregarCliente(ClienteReq cli)
         {
-            var result = clienteRepo.AddCliente(cli);
-
+            
             return View();
         }
 

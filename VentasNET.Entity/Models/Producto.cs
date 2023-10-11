@@ -15,7 +15,8 @@ public partial class Producto
 
     public string Descripcion { get; set; }
 
-    public int ImporteProducto { get; set; }
+    public string? ImporteProducto { get; set; }
 
     public bool Estado { get; set; }
+    public string Codigo { get; set; }
 }
