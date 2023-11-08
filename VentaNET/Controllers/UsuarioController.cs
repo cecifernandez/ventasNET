@@ -36,7 +36,7 @@ namespace VentaNET.Controllers
             }
             else
             {
-                return View();
+                return View("Verificar");
             }
         }
 
@@ -60,9 +60,14 @@ namespace VentaNET.Controllers
 
         public IActionResult GuardarUser(UsuarioReq user)
         {
+            var result = usuarioRepo.AddUsuario(user);
             return RedirectToAction("Inicio");
         }
 
+        public IActionResult AgregarUser(UsuarioReq user)
+        {
+            return View();
+        }
 
         public IActionResult VerUsuario()
         {

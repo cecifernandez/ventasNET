@@ -7,7 +7,7 @@ namespace VentaNET.Controllers
     public class ClienteController : Controller
     {
 
-        IClienteRepo clienteRepo;
+        private readonly IClienteRepo clienteRepo;
 
         public ClienteController(IClienteRepo _clienteRepo)
         {

@@ -1,0 +1,43 @@
+﻿@using VentasNet.Infra.DTO.Request
+@model IEnumerable<MovimientosDeComprobanteReq>
+<h2>Listado de Movimientos de Comprobante</h2>
+
+
+@{
+    var compReq = new MovimientosDeComprobanteReq();
+}
+
+<table class="table">
+
+    <thead>
+        <tr>
+
+            <th>@Html.DisplayNameFor(model => model.IdComprobante)</th>
+            <th>@Html.DisplayNameFor(model => model.Importe)</th>
+            <th>@Html.DisplayNameFor(model => model.Descuento)</th>
+            <th>@Html.DisplayNameFor(model => model.Total)</th>
+        </tr>
+    </thead>
+
+    @{
+
+        if (ViewBag.MovimientosDeComprobante != null)
+        {
+            foreach (MovimientosDeComprobanteReq comp in ViewBag.MovimientosDeComprobante)
+            {
+                <tr>
+
+                    <td>@comp.IdComprobante</td>
+                    <td>@comp.Importe</td>
+                    <td>@comp.Descuento</td>
+                    <td>@comp.Total</td>
+                    <td>
+                        @Html.ActionLink("Modificar", "Edit", "MovimientosComprobante", comp,  new { @class="btn btn-primary" })
+                        @Html.ActionLink("Delete", "Delete", "MovimientosComprobante",comp, new { @class="btn btn-danger"})
+                    </td>
+                </tr>
+            }
+        }
+    }
+
+</table>

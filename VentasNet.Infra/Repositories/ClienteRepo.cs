@@ -99,7 +99,7 @@ namespace VentasNet.Infra.Repositories
                     existeCliente.Estado = /*cliente.Estado != null ? cliente.Estado : */true;
                     //existeCliente.FechaAlta = cliente.FechaAlta != null ? cliente.FechaAlta : existeCliente.FechaAlta;
                     //existeCliente.FechaBaja = cliente.FechaBaja;
-                    existeCliente.IdUsuario = cliente.IdUsuario != null ? cliente.IdUsuario : existeCliente.IdUsuario;
+                    //existeCliente.IdUsuario = cliente.IdUsuario != null ? cliente.IdUsuario : existeCliente.IdUsuario;
 
 
                     _context.Update(existeCliente);

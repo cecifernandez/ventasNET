@@ -14,7 +14,7 @@ namespace VentasNet.Infra.Interfaces
     {
         public UsuarioResponse UpdateUsuario(UsuarioReq user);
         public UsuarioResponse VerificarUsuario(UsuarioReq user);
-
+        public UsuarioResponse AddUsuario(UsuarioReq user);
         public Usuario GetUsuarioUsername(string username);
     }
 }

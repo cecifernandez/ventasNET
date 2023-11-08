@@ -59,9 +59,48 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Producto" asp-action="AgregarProd">Agregar</a>
                                 </li>
                             </ul>
-                        </li>                        
+                            
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Usuario
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="VerUsuario">Editar User</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="AgregarUser">Agregar User</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                             <a class="nav-link text-dark" asp-area="" asp-controller="Venta" asp-action="Venta">Venta</a>
+                        </li>
+                       @*  <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Facturacion
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Comprobante" asp-action="ListaComprobante">Lista de comprobantes</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Pago" asp-action="ListaPago">Lista de pago</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="MovimientosComprobante" asp-action="ListaMov">Lista de movimientos de comprobantes</a>
+                                </li> 
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="MovimientosProveedores" asp-action="ListaMovProv">Lista de movimiento de proveedores</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Stock" asp-action="ListaStock">Lista de stock</a>
+                                </li>
+                            </ul>
+                        </li> *@
                     </ul>
-                    <ul class="navbar-nav ml-auto">
+                    @* <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Usuario" asp-action="VerUsuario">
                                 <div class="circle-icon">
@@ -69,7 +108,7 @@
                                 </div>
                             </a>
                         </li>
-                    </ul>
+                    </ul> *@
                 </div>
             </div>
         </nav>

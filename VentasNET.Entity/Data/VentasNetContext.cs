@@ -17,21 +17,35 @@ public partial class VentasNetContext : DbContext
 
     public virtual DbSet<Cliente> Cliente { get; set; }
 
+    public virtual DbSet<Comprobante> Comprobante { get; set; }
+
+    public virtual DbSet<Financiacion> Financiacion { get; set; }
+
+    public virtual DbSet<FormasDePago> FormasDePago { get; set; }
+
+    public virtual DbSet<MetodosPago> MetodosPago { get; set; }
+
+    public virtual DbSet<MovimientoDeComprobantes> MovimientoDeComprobantes { get; set; }
+
+    public virtual DbSet<MovimientoDeProveedores> MovimientoDeProveedores { get; set; }
+
     public virtual DbSet<Producto> Producto { get; set; }
 
     public virtual DbSet<Proveedor> Proveedor { get; set; }
 
+    public virtual DbSet<Stock> Stock { get; set; }
+
     public virtual DbSet<Usuario> Usuario { get; set; }
+
+    public virtual DbSet<Venta> Venta { get; set; }
+
+    public virtual DbSet<VwComprobantes> VwComprobantes { get; set; }
 
     public virtual DbSet<VwUsuario> VwUsuario { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-            modelBuilder.ApplyConfiguration(new Configurations.ClienteConfiguration());
-            modelBuilder.ApplyConfiguration(new Configurations.ProductoConfiguration());
-            modelBuilder.ApplyConfiguration(new Configurations.ProveedorConfiguration());
-            modelBuilder.ApplyConfiguration(new Configurations.UsuarioConfiguration());
-            modelBuilder.ApplyConfiguration(new Configurations.VwUsuarioConfiguration());
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(VentasNetContext).Assembly);
 
         OnModelCreatingPartial(modelBuilder);
     }

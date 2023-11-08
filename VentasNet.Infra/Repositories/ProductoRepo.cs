@@ -39,9 +39,9 @@ namespace VentasNet.Infra.Repositories
                 prodReq.Descripcion = item.Descripcion;
                 prodReq.ImporteProducto = item.ImporteProducto;
                 prodReq.Codigo = item.Codigo;
-                prodReq.Id = item.Id;
+                prodReq.Id = item.IdProducto;
                 prodReq.Estado = item.Estado;
-            
+
 
                 listadoProd.Add(prodReq);
             }
@@ -112,7 +112,7 @@ namespace VentasNet.Infra.Repositories
                 try
                 {
                     existeProd.Estado = false;
-                    
+
 
 
 
@@ -143,7 +143,7 @@ namespace VentasNet.Infra.Repositories
             {
                 try
                 {
-                    
+
                     existeProd.NombreProducto = producto.NombreProducto != null ? producto.NombreProducto : existeProd.NombreProducto;
                     existeProd.Descripcion = producto.Descripcion != null ? producto.Descripcion : existeProd.Descripcion;
                     existeProd.Codigo = producto.Codigo != null ? producto.Codigo : existeProd.Codigo;

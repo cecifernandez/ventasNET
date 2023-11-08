@@ -1,0 +1,42 @@
+﻿@using VentasNet.Infra.DTO.Request
+@model IEnumerable<StockReq>
+<h2>Listado de Stock</h2>
+
+
+@{
+    var stockReq = new StockReq();
+}
+
+<table class="table">
+
+    <thead>
+        <tr>
+
+            <th>@Html.DisplayNameFor(model => model.IdProducto)</th>
+            <th>@Html.DisplayNameFor(model => model.CantIngreso)</th>
+            <th>@Html.DisplayNameFor(model => model.CantEgreso)</th>
+        </tr>
+    </thead>
+
+    @{
+
+        if (ViewBag.Stock != null)
+        {
+            foreach (StockReq stock in ViewBag.Stock)
+            {
+                <tr>
+
+                    <td>@stock.IdProducto</td>
+                    <td>@stock.CantIngreso</td>
+                    <td>@stock.CantEgreso</td>
+
+                    <td>
+                        @Html.ActionLink("Modificar", "Edit", "Stock", stock,  new { @class="btn btn-primary" })
+                        @Html.ActionLink("Delete", "Delete", "Stock",stock, new { @class="btn btn-danger"})
+                    </td>
+                </tr>
+            }
+        }
+    }
+
+</table>

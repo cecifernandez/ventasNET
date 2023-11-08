@@ -79,12 +79,56 @@ namespace VentasNet.Infra.Repositories
             return user;
         }
 
-      
 
-        //public bool AgregarUsuario(UsuarioRepo user)
-        //{
-        //    return true;
 
-        //}
+        public UsuarioResponse AddUsuario(UsuarioReq user)
+        {
+            UsuarioResponse userResponse = new UsuarioResponse();
+
+            //verificar si existe
+            if (user.UserName != null)
+            {
+                var existeUser = GetUsuarioUsername(user.UserName);
+
+                if (existeUser == null)
+                {
+                    try
+                    {
+                        var userNew = MapeoUser(user);
+
+                        userNew.Estado = true;
+                        userNew.FechaAlta = DateTime.Now;
+
+
+
+                        _context.Add(userNew);
+                        _context.SaveChanges();
+                        userResponse.Guardar = true;
+                        userResponse.UserName = userNew.UserName;
+                    }
+                    catch (Exception ex)
+                    {
+                        userResponse.Mensaje = "Ocurrió un error al modificar cliente";
+                        userResponse.Guardar = false;
+                    }
+
+                }
+            }
+
+            return userResponse;
+        }
+
+        public Usuario MapeoUser(UsuarioReq user)
+        {
+            Usuario usuario = new Usuario()
+            {
+                Password = user.Password != null ? user.Password : string.Empty,
+                UserName = user.UserName != null ? user.UserName : string.Empty,
+                Email = user.Email != null ? user.Email : string.Empty,
+                
+            };
+
+            return usuario;
+        }
     }
 }

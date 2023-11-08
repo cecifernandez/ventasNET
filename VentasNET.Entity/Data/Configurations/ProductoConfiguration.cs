@@ -12,8 +12,24 @@ namespace VentasNET.Entity.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Producto> entity)
         {
-            entity.Property(e => e.Id);
-            
+            entity.HasKey(e => e.IdProducto);
+
+            entity.Property(e => e.Codigo)
+            .IsRequired()
+            .HasMaxLength(50)
+            .IsUnicode(false);
+            entity.Property(e => e.Descripcion)
+            .IsRequired()
+            .HasMaxLength(150)
+            .IsUnicode(false);
+            entity.Property(e => e.ImporteProducto)
+            .IsRequired()
+            .HasMaxLength(50)
+            .IsUnicode(false);
+            entity.Property(e => e.NombreProducto)
+            .IsRequired()
+            .HasMaxLength(50)
+            .IsUnicode(false);
 
             OnConfigurePartial(entity);
         }

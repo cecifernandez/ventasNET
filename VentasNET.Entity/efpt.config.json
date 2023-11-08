@@ -20,6 +20,30 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[Comprobante]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Financiacion]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[FormasDePago]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[MetodosPago]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[MovimientoDeComprobantes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[MovimientoDeProveedores]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Producto]",
          "ObjectType": 0
       },
@@ -28,8 +52,20 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[Stock]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Usuario]",
          "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Venta]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[vwComprobantes]",
+         "ObjectType": 3
       },
       {
          "Name": "[dbo].[vwUsuario]",
@@ -49,6 +85,7 @@
    "UseLegacyPluralizer": false,
    "UseManyToManyEntity": false,
    "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
    "UseNoObjectFilter": false,
    "UseNodaTime": false,
    "UseNullableReferences": false,

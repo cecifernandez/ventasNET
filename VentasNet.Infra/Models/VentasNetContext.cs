@@ -16,11 +16,29 @@ public partial class VentasNetContext : DbContext
 
     public virtual DbSet<Cliente> Cliente { get; set; }
 
+    public virtual DbSet<Comprobante> Comprobante { get; set; }
+
+    public virtual DbSet<Financiacion> Financiacion { get; set; }
+
+    public virtual DbSet<FormasDePago> FormasDePago { get; set; }
+
+    public virtual DbSet<MetodosPago> MetodosPago { get; set; }
+
+    public virtual DbSet<MovimientoDeComprobantes> MovimientoDeComprobantes { get; set; }
+
+    public virtual DbSet<MovimientoDeProveedores> MovimientoDeProveedores { get; set; }
+
     public virtual DbSet<Producto> Producto { get; set; }
 
     public virtual DbSet<Proveedor> Proveedor { get; set; }
 
+    public virtual DbSet<Stock> Stock { get; set; }
+
     public virtual DbSet<Usuario> Usuario { get; set; }
+
+    public virtual DbSet<Venta> Venta { get; set; }
+
+    public virtual DbSet<VwComprobantes> VwComprobantes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -29,10 +47,10 @@ public partial class VentasNetContext : DbContext
             entity.HasKey(e => e.IdCliente).HasName("PK_cliente");
 
             entity.Property(e => e.Apellido)
-                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Cuit)
+                .IsRequired()
                 .HasMaxLength(11)
                 .IsUnicode(false)
                 .HasColumnName("CUIT");
@@ -43,7 +61,6 @@ public partial class VentasNetContext : DbContext
             entity.Property(e => e.FechaAlta).HasColumnType("datetime");
             entity.Property(e => e.FechaBaja).HasColumnType("datetime");
             entity.Property(e => e.Localidad)
-                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Nombre)
@@ -55,19 +72,112 @@ public partial class VentasNetContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.RazonSocial)
+                .IsRequired()
                 .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.Telefeno)
-                .IsRequired()
                 .HasMaxLength(15)
                 .IsUnicode(false);
         });
 
-        modelBuilder.Entity<Producto>(entity =>
+        modelBuilder.Entity<Comprobante>(entity =>
+        {
+            entity.HasKey(e => e.IdComprobante);
+
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.FechaMovimiento).HasColumnType("datetime");
+            entity.Property(e => e.Nombre)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.NombreCorto)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<Financiacion>(entity =>
+        {
+            entity.Property(e => e.Codigo)
+                .IsRequired()
+                .HasMaxLength(10)
+                .IsFixedLength();
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Porcentaje)
+                .HasMaxLength(10)
+                .IsFixedLength();
+        });
+
+        modelBuilder.Entity<FormasDePago>(entity =>
         {
             entity.Property(e => e.Descripcion)
                 .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Entidad)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<MetodosPago>(entity =>
+        {
+            entity.HasKey(e => e.IdMetodoPago);
+
+            entity.Property(e => e.FechaAlta).HasColumnType("date");
+            entity.Property(e => e.FechaBaja).HasColumnType("date");
+            entity.Property(e => e.MetodoPago)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<MovimientoDeComprobantes>(entity =>
+        {
+            entity.Property(e => e.Descuento).HasColumnType("decimal(16, 2)");
+            entity.Property(e => e.Importe).HasColumnType("decimal(16, 2)");
+            entity.Property(e => e.Total).HasColumnType("decimal(16, 2)");
+
+            entity.HasOne(d => d.IdComprobanteNavigation).WithMany(p => p.MovimientoDeComprobantes)
+                .HasForeignKey(d => d.IdComprobante)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_MovimientoDeComprobantes_Comprobante");
+        });
+
+        modelBuilder.Entity<MovimientoDeProveedores>(entity =>
+        {
+            entity.Property(e => e.Comprobante)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Descuentos).HasColumnType("decimal(16, 0)");
+            entity.Property(e => e.FechaComprobante).HasColumnType("date");
+            entity.Property(e => e.FechaMovimiento)
+                .IsRequired()
+                .IsRowVersion()
+                .IsConcurrencyToken();
+            entity.Property(e => e.ImporteTotal).HasColumnType("decimal(16, 2)");
+        });
+
+        modelBuilder.Entity<Producto>(entity =>
+        {
+            entity.HasKey(e => e.IdProducto);
+
+            entity.Property(e => e.Codigo)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Descripcion)
+                .IsRequired()
                 .HasMaxLength(150)
+                .IsUnicode(false);
+            entity.Property(e => e.ImporteProducto)
+                .IsRequired()
+                .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.NombreProducto)
                 .IsRequired()
@@ -114,6 +224,26 @@ public partial class VentasNetContext : DbContext
                 .IsUnicode(false);
         });
 
+        modelBuilder.Entity<Stock>(entity =>
+        {
+            entity.Property(e => e.FechaEgreso).HasColumnType("datetime");
+            entity.Property(e => e.FechaIngreso).HasColumnType("datetime");
+            entity.Property(e => e.FechaMovimiento)
+                .IsRequired()
+                .IsRowVersion()
+                .IsConcurrencyToken();
+
+            entity.HasOne(d => d.IdComprobanteNavigation).WithMany(p => p.Stock)
+                .HasForeignKey(d => d.IdComprobante)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Stock_Comprobante");
+
+            entity.HasOne(d => d.IdProductoNavigation).WithMany(p => p.Stock)
+                .HasForeignKey(d => d.IdProducto)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Stock_Producto");
+        });
+
         modelBuilder.Entity<Usuario>(entity =>
         {
             entity.HasKey(e => e.IdUsuario);
@@ -131,6 +261,41 @@ public partial class VentasNetContext : DbContext
             entity.Property(e => e.UserName)
                 .IsRequired()
                 .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<Venta>(entity =>
+        {
+            entity.HasKey(e => e.IdVenta);
+
+            entity.Property(e => e.Fecha).HasColumnType("datetime");
+            entity.Property(e => e.NombreCli)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<VwComprobantes>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("vwComprobantes");
+
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.IdComprobante).ValueGeneratedOnAdd();
+            entity.Property(e => e.Nombre)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.NombreCorto)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.NroProximoCbte)
+                .IsRequired()
+                .HasMaxLength(35)
                 .IsUnicode(false);
         });
 

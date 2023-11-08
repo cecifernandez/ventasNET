@@ -1,0 +1,46 @@
+﻿body {
+}
+
+.title{
+    display: flex;
+    justify-content: center;
+    font-size: x-large;
+}
+
+.subtitle, .product {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.product_info {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    border: 1px solid black;
+    font-family: 'Nunito', sans-serif;
+}
+
+.total {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+}
+
+.total_text{
+    font-weight: 700;
+}
+
+.print{
+    display:flex;
+    justify-content: center;
+}
+
+.form-control {
+    width: 150px;
+    height: 45px;
+}
+
+

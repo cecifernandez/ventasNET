@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using VentasNet.Infra.Interfaces;
 using VentasNet.Infra.Repositories;
+using VentasNet.Infra.Services.Interfaces;
+using VentasNet.Infra.Services.Repo;
 using VentasNET.Entity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,13 @@ builder.Services.AddScoped<IClienteRepo, ClienteRepo>();
 builder.Services.AddScoped<IProveedorRepo, ProveedorRepo>();
 builder.Services.AddScoped<IProductoRepo, ProductoRepo>();
 builder.Services.AddScoped<IUsuarioRepo, UsuarioRepo>();
+builder.Services.AddScoped<IClienteService, ClienteServices>();
+builder.Services.AddScoped<IComprobanteRepo, ComprobanteRepo>();
+builder.Services.AddScoped<IFormasPagoRepo, FormasPagoRepo>();
+builder.Services.AddScoped<IMovCompRepo, MovCompRepo>();
+builder.Services.AddScoped<IMovProvRepo, MovProvRepo>();
+builder.Services.AddScoped<IStockRepo, StockRepo>();
+builder.Services.AddScoped<IVenta, VentaRepo>();
 
 var app = builder.Build();
 
@@ -42,3 +51,4 @@ app.MapControllerRoute(
     pattern: "{controller=Usuario}/{action=Inicio}/{id?}");
 
 app.Run();
+

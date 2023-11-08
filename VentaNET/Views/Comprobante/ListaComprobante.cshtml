@@ -1,0 +1,41 @@
+﻿@using VentasNet.Infra.DTO.Request
+@model IEnumerable<ComprobanteReq>
+<h2>Listado de Comprobantes</h2>
+
+
+@{
+    var compReq = new ComprobanteReq();
+}
+
+<table class="table">
+
+    <thead>
+        <tr>
+
+            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+            <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
+
+        </tr>
+    </thead>
+
+    @{
+
+        if (ViewBag.Comprobante != null)
+        {
+            foreach (ComprobanteReq comp in ViewBag.Comprobante)
+            {
+                <tr>
+
+                    <td>@comp.Nombre</td>
+                    <td>@comp.Descripcion</td>
+
+                    <td>
+                        @Html.ActionLink("Modificar", "Edit", "Comprobante", comp,  new { @class="btn btn-primary" })
+                        @Html.ActionLink("Delete", "Delete", "Comprobante",comp, new { @class="btn btn-danger"})
+                    </td>
+                </tr>
+            }
+        }
+    }
+
+</table>

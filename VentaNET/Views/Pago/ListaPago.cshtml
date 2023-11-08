@@ -1,0 +1,40 @@
+﻿@using VentasNet.Infra.DTO.Request
+@model IEnumerable<FormasDePagoReq>
+<h2>Listado de Formas de Pago</h2>
+
+
+@{
+    var pagoReq = new FormasDePagoReq();
+}
+
+<table class="table">
+
+    <thead>
+        <tr>
+
+            <th>@Html.DisplayNameFor(model => model.Entidad)</th>
+            <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
+        </tr>
+    </thead>
+
+    @{
+
+        if (ViewBag.FormasDePago != null)
+        {
+            foreach (FormasDePagoReq pago in ViewBag.FormasDePago)
+            {
+                <tr>
+
+                    <td>@pago.Entidad</td>
+                    <td>@pago.Descripcion</td>
+
+                    <td>
+                        @Html.ActionLink("Modificar", "Edit", "FormasDePago", pago,  new { @class="btn btn-primary" })
+                        @Html.ActionLink("Delete", "Delete", "FormasDePago",pago, new { @class="btn btn-danger"})
+                    </td>
+                </tr>
+            }
+        }
+    }
+
+</table>

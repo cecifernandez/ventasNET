@@ -1,0 +1,41 @@
+﻿@using VentasNet.Infra.DTO.Request
+@model IEnumerable<MovimientosDeProveedoresReq>
+<h2>Listado de Movimientos de Proveedores</h2>
+
+
+@{
+    var provReq = new MovimientosDeProveedoresReq();
+}
+
+<table class="table">
+
+    <thead>
+        <tr>
+
+            <th>@Html.DisplayNameFor(model => model.Comprobante)</th>
+            <th>@Html.DisplayNameFor(model => model.ImporteTotal)</th>
+            <th>@Html.DisplayNameFor(model => model.Descuentos)</th>
+        </tr>
+    </thead>
+
+    @{
+
+        if (ViewBag.MovimientosDeProveedores != null)
+        {
+            foreach (MovimientosDeProveedoresReq prov in ViewBag.MovimientosDeComprobante)
+            {
+                <tr>
+
+                    <td>@prov.Comprobante</td>
+                    <td>@prov.ImporteTotal</td>
+                    <td>@prov.Descuentos</td>
+                    <td>
+                        @Html.ActionLink("Modificar", "Edit", "MovimientosProveedores", prov,  new { @class="btn btn-primary" })
+                        @Html.ActionLink("Delete", "Delete", "MovimientosProveedores",prov, new { @class="btn btn-danger"})
+                    </td>
+                </tr>
+            }
+        }
+    }
+
+</table>

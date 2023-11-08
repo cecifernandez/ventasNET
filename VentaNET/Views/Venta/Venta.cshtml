@@ -1,0 +1,107 @@
+﻿@using VentasNet.Infra.DTO.Request;
+@model VentaReq
+
+<head>
+    <link rel="stylesheet" href="~/css/venta.css" />
+</head>
+
+
+<body>
+    <h1 class="title">Factura MangasNet</h1>
+    <div class="subtitle">
+        @Html.DropDownList("ClientDropdown", ViewBag.ClientList, "Cliente", new { @class = "form-control" })
+        <p><strong>Nº de Comprobante:</strong> @ViewBag.Comprobante </p>
+        <p><strong>Fecha:</strong> @DateTime.Now</p>
+    </div>
+    <div class="product">
+        <select id="producto" class="form-control">
+            <option>Producto</option>
+            @foreach (var item in ViewBag.ProductList)
+            {
+                <option>@item.NombreProducto</option>
+            }
+        </select>
+        <p id="prod_descripcion"><strong>Descripción:</strong></p>
+        <label for="cantidad">Cantidad: <input type="number" id="cantidad" name="cantidad" /></label>
+        <button id="agregarBtn">Agregar</button>
+    </div>
+    <table class="product_info" id="product_container">
+        <tr>
+            <th>Producto</th>
+            <th>Descripcion</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th></th>
+        </tr>
+        <tbody id="table-body"></tbody>
+
+    </table>
+    <div class="total" id="total">
+        <p class="total_text">Total:</p>
+    </div>
+    <form method="post" action="@Url.Action("GuardarVenta", "Venta")">
+        <input type="submit" value="Facturar" class="btn btn-primary">
+    </form>
+</body>
+
+<script>
+    let descripcion = document.getElementById("prod_descripcion");
+    let prodDropdown = document.getElementById("producto");
+    let productList = @Html.Raw(Json.Serialize(ViewBag.ProductList));
+    let agregarBtn = document.getElementById("agregarBtn");
+    let cantidad = document.getElementById("cantidad");
+
+    let productoLista = document.getElementById("listProd");
+    let descripcionLista = document.getElementById("listDesc");
+    let cantidadLista = document.getElementById("listCant");
+    let precioLista = document.getElementById("listPrecio");
+    let totalPrecio = document.getElementById("total");
+
+    let total = 0;
+
+
+    console.log(productList)
+
+    prodDropdown.addEventListener("change", function () {
+        var selectedValue = prodDropdown.value;       
+        for (var i = 0; i < productList.length; i++) {
+            if (productList[i].nombreProducto === selectedValue) {
+                var selectedDescription = productList[i].descripcion;
+                descripcion.textContent = selectedDescription;
+                break;
+            }
+        }
+    });
+    
+
+    agregarBtn.addEventListener("click", function () {
+       
+        let container = document.getElementById('product_container');
+
+       
+        let newRow = document.createElement('tr');
+        newRow.className = 'product';
+
+        
+        let selectedValue = prodDropdown.value;
+        for (var i = 0; i < productList.length; i++) {
+            if (productList[i].nombreProducto === selectedValue) {
+                newRow.innerHTML = `
+                    <td id="listProd">${productList[i].nombreProducto}</td>
+                    <td id="listDesc">${productList[i].descripcion}</td>
+                    <td id="listCant">${cantidad.value}</td>
+                    <td id="listPrecio">$${productList[i].importeProducto * cantidad.value}</td>
+                `;
+
+                total += productList[i].importeProducto * cantidad.value;
+                totalPrecio.textContent = `Total: ${total}`;
+
+                break;
+            }
+        }
+        totalPrecio.className = "total total_text"
+        newRow.className = "product_info"
+        container.appendChild(newRow);
+    });
+</script>
+
